@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SuperHeroAPI.Entities;
-using SuperHeroAPI.Interfaces;
+using SuperHeroAPI.Models;
 
 namespace SuperHeroAPI.Controllers
 {
@@ -15,53 +14,50 @@ namespace SuperHeroAPI.Controllers
             _superHeroService = superHeroService;
         }
 
-        [HttpPost]
-        public ActionResult<List<SuperHero>> AddHero(SuperHero hero)
+        [HttpGet]
+        public ActionResult<IEnumerable<SuperHeroDto>> GetAll()
         {
-            var id = _superHeroService.Create(hero);
+            IEnumerable<SuperHeroDto> superHeroesDtos = _superHeroService.GetAll();
+
+            return Ok(superHeroesDtos);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<SuperHeroDto> Get([FromRoute] int id)
+        {
+            object heroDto = _superHeroService.GetById(id);
+
+            return Ok(heroDto);
+        }
+
+        [HttpPost]
+        public ActionResult<IEnumerable<SuperHeroDto>> AddHero([FromBody] CreateSuperHeroDto dto)
+        {
+            var id = _superHeroService.Create(dto);
+
             return Created($"/api/SuperHero/{id}", null);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<SuperHero>> DeleteHero(int? id)
+        public ActionResult<IEnumerable<SuperHeroDto>> DeleteHero([FromRoute] int id)
         {
-            if (_superHeroService.GetById(id) == null)
-            {
-                return NotFound();
-            }
             _superHeroService.Delete(id);
+
             return NoContent();
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<SuperHero> Get(int? id)
+        [HttpDelete]
+        public ActionResult<IEnumerable<SuperHeroDto>> DeleteAll()
         {
-            object hero = _superHeroService.GetById(id);
-            if(hero == null)
-            {
-                return NotFound();
-            }
-            return Ok(hero);
+            _superHeroService.DeleteAll();
+
+            return NoContent();
         }
 
-        [HttpGet]
-        public ActionResult<List<SuperHero>> GetAll()
+        [HttpPut("{id}")]
+        public ActionResult<SuperHeroDto> UpdateHero([FromRoute] int id, [FromBody] UpdateSuperHeroDto dto)
         {
-            object superHeroes = _superHeroService.GetAll();
-
-            return Ok(superHeroes);
-        }
-
-        [HttpPut]
-        public ActionResult<List<SuperHero>> UpdateHero(SuperHero request)
-        {
-            if(_superHeroService.GetById(request.Id) == null)
-            {
-                return NotFound();
-            }
-            _superHeroService.Update(request);
-
-            return Ok();
+            return Ok(_superHeroService.Update(id, dto));
         }
     }
 }

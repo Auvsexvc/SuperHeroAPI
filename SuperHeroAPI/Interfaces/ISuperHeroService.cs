@@ -1,13 +1,19 @@
-﻿using SuperHeroAPI.Entities;
+﻿using SuperHeroAPI.Models;
 
 namespace SuperHeroAPI.Interfaces
 {
     public interface ISuperHeroService
     {
-        SuperHero GetById(int? id);
-        IEnumerable<SuperHero> GetAll();
-        int Create(SuperHero entity);
-        void Delete(int? id);
-        void Update(SuperHero entity);
+        SuperHeroDto GetById(int id);
+
+        IEnumerable<SuperHeroDto> GetAll();
+
+        int Create(CreateSuperHeroDto dto);
+
+        void Delete(int id);
+
+        void DeleteAll();
+
+        SuperHeroDto Update(int id, UpdateSuperHeroDto dto);
     }
 }
