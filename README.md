@@ -1,6 +1,8 @@
 # SuperHeroAPI
 
-Simple controller based API in C# .Net Core 6 
+Simple controller based API in C# .Net Core 6
+
+many to many relation, dtos, custom mapping, errorhandling middleware, swagger, logger
 
 using:
 
@@ -10,6 +12,8 @@ Microsoft.EntityFrameworkCore.Design
 Microsoft.EntityFrameworkCore.SqlServer
 Microsoft.EntityFrameworkCore.Tools
 Swashbuckle.AspNetCore
+NLog.Web.AspNetCore
 
 
-![image](https://user-images.githubusercontent.com/103057715/177163338-1325147e-5c66-4bbf-a60a-52d35826e5b8.png)
+![image](https://user-images.githubusercontent.com/103057715/178124326-117248b6-a310-4031-812c-ca019ed2e9c3.png)
+
