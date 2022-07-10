@@ -1,5 +1,8 @@
-﻿namespace SuperHeroAPI.Exceptions
+﻿using System.Runtime.Serialization;
+
+namespace SuperHeroAPI.Exceptions
 {
+    [Serializable]
     public class BadRequestException : Exception
     {
         public BadRequestException() : base()
@@ -11,6 +14,10 @@
         }
 
         public BadRequestException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected BadRequestException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

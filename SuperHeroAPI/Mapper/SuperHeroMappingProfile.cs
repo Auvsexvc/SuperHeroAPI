@@ -15,7 +15,12 @@ namespace SuperHeroAPI.Mapper
                 .ForMember(m=>m.UsedBySuperHeroes, c=> c.MapFrom(s=>string.Join(", ",s.SuperHeroes.Select(s=>s.Name))));
 
             CreateMap<CreateSuperHeroDto, SuperHero>();
+
+            CreateMap<UpdateSuperHeroDto, SuperHero>();
+
             CreateMap<CreateSuperPowerDto, SuperPower>();
+
+            CreateMap<UpdateSuperPowerDto, SuperPower>();
         }
     }
 }

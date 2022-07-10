@@ -83,7 +83,7 @@ namespace SuperHeroAPI.Services
 
             _dbContext.SaveChanges();
 
-            _logger.LogInformation($"SuperPower {power.Name} with ID {power.Id} created.");
+            _logger.LogInformation("SuperPower created.");
 
             return power.Id;
         }
@@ -103,7 +103,7 @@ namespace SuperHeroAPI.Services
 
             _dbContext.SaveChanges();
 
-            _logger.LogInformation($"SuperPower {power.Name} with ID {power.Id} deleted.");
+            _logger.LogInformation("SuperPower deleted.");
         }
 
         public void DeleteAll()
@@ -157,7 +157,7 @@ namespace SuperHeroAPI.Services
 
             _dbContext.SaveChanges();
 
-            _logger.LogInformation($"SuperPower {power.Name} with ID {power.Id} updated.");
+            _logger.LogInformation("SuperPower updated.");
 
             return _mapper.Map<SuperPowerDto>(power);
         }

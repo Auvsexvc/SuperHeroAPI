@@ -24,7 +24,7 @@ namespace SuperHeroAPI.Services
             _dbContext.Add(hero);
             _dbContext.SaveChanges();
 
-            _logger.LogInformation($"SuperHero {hero.Name} with ID {hero.Id} created.");
+            _logger.LogInformation("SuperHero created.");
 
             return hero.Id;
         }
@@ -41,7 +41,7 @@ namespace SuperHeroAPI.Services
             _dbContext.SuperHeroes.Remove(hero);
             _dbContext.SaveChanges();
 
-            _logger.LogInformation($"SuperHero {hero.Name} with ID {hero.Id} deleted.");
+            _logger.LogInformation("SuperHero deleted.");
         }
 
         public void DeleteAll()
@@ -95,7 +95,7 @@ namespace SuperHeroAPI.Services
 
             _dbContext.SaveChanges();
 
-            _logger.LogInformation($"SuperHero {hero.Name} with ID {hero.Id} updated.");
+            _logger.LogInformation("SuperHero updated.");
 
             return _mapper.Map<SuperHeroDto>(hero);
         }
