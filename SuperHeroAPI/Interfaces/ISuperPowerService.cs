@@ -9,7 +9,7 @@ namespace SuperHeroAPI.Interfaces
         int Create(CreateSuperPowerDto dto);
         void Delete(int id);
         void DeleteAll();
-        SuperPowerDto Update(int id, CreateSuperPowerDto dto);
+        SuperPowerDto Update(int id, UpdateSuperPowerDto dto);
         SuperPowerDto AddHeroAssignment(int id, int heroId);
         SuperPowerDto RemoveHeroAssignment(int id, int heroId);
     }

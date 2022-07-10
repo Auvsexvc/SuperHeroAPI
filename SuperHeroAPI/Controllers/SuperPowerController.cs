@@ -56,7 +56,7 @@ namespace SuperPowerAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<SuperPowerDto>> UpdatePower([FromRoute] int id, [FromBody] CreateSuperPowerDto dto)
+        public ActionResult<List<SuperPowerDto>> UpdatePower([FromRoute] int id, [FromBody] UpdateSuperPowerDto dto)
         {
             _superPowerService.Update(id, dto);
 

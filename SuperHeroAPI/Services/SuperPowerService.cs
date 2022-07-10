@@ -29,8 +29,12 @@ namespace SuperHeroAPI.Services
             {
                 throw new NotFoundException("SuperPower not found.");
             }
+            else if (hero is null)
+            {
+                throw new NotFoundException("SuperHero not found.");
+            }
 
-            if (heroesUsingPower.SuperHeroes.Any(h => h.Id == heroId))
+            if (heroesUsingPower?.SuperHeroes.Any(h => h.Id == heroId) != false)
             {
                 throw new BadRequestException("Pointed SuperHero is already using this Super power.");
             }
@@ -53,8 +57,12 @@ namespace SuperHeroAPI.Services
             {
                 throw new NotFoundException("SuperPower not found.");
             }
+            else if(hero is null)
+            {
+                throw new NotFoundException("SuperHero not found.");
+            }
 
-            if (!heroesUsingPower.SuperHeroes.Any(h => h.Id == heroId))
+            if (heroesUsingPower?.SuperHeroes.Any(h => h.Id == heroId) != true)
             {
                 throw new BadRequestException("Pointed SuperHero is not using this Super power.");
             }
@@ -134,7 +142,7 @@ namespace SuperHeroAPI.Services
             return _mapper.Map<SuperPowerDto>(power);
         }
 
-        public SuperPowerDto Update(int id, CreateSuperPowerDto dto)
+        public SuperPowerDto Update(int id, UpdateSuperPowerDto dto)
         {
             var power = _dbContext.SuperPowers.Find(id);
 

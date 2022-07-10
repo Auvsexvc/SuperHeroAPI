@@ -29,6 +29,6 @@ namespace SuperHeroAPI.Entities
         [Required]
         public int BaseStrength { get; set; }
 
-        public virtual List<SuperPower>? SuperPowers { get; set; }
+        public virtual List<SuperPower> SuperPowers { get; set; } = new();
     }
 }

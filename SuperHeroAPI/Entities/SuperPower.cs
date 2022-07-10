@@ -17,6 +17,6 @@ namespace SuperHeroAPI.Entities
         [Required]
         public int AdditionToSuperHeroStrength { get; set; }
 
-        public virtual List<SuperHero>? SuperHeroes { get; set; }
+        public virtual List<SuperHero> SuperHeroes { get; set; } = new();
     }
 }
