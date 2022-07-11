@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuperHeroAPI.Data;
 
@@ -10,9 +11,10 @@ using SuperHeroAPI.Data;
 namespace SuperHeroAPI.Migrations
 {
     [DbContext(typeof(SuperHeroDbContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220711151559_AddUsersAndRoles")]
+    partial class AddUsersAndRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,35 +22,6 @@ namespace SuperHeroAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("SuperHeroAPI.Entities.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "User"
-                        });
-                });
 
             modelBuilder.Entity("SuperHeroAPI.Entities.SuperHero", b =>
                 {
@@ -117,36 +90,6 @@ namespace SuperHeroAPI.Migrations
                     b.ToTable("SuperPowers");
                 });
 
-            modelBuilder.Entity("SuperHeroAPI.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("SuperHeroSuperPower", b =>
                 {
                     b.Property<int>("SuperHeroesId")
@@ -160,17 +103,6 @@ namespace SuperHeroAPI.Migrations
                     b.HasIndex("SuperPowersId");
 
                     b.ToTable("SuperHeroSuperPower");
-                });
-
-            modelBuilder.Entity("SuperHeroAPI.Entities.User", b =>
-                {
-                    b.HasOne("SuperHeroAPI.Entities.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("SuperHeroSuperPower", b =>

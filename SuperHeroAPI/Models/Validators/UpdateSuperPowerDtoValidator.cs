@@ -2,9 +2,9 @@
 
 namespace SuperHeroAPI.Models.Validators
 {
-    public class UpdateSuperPowerValidator : AbstractValidator<UpdateSuperPowerDto>
+    public class UpdateSuperPowerDtoValidator : AbstractValidator<UpdateSuperPowerDto>
     {
-        public UpdateSuperPowerValidator(SuperHeroDbContext dbContext)
+        public UpdateSuperPowerDtoValidator(SuperHeroDbContext dbContext)
         {
             RuleFor(x => x.Name).NotEmpty().MinimumLength(3).MaximumLength(50).Custom((value, context) =>
             {

@@ -2,9 +2,9 @@
 
 namespace SuperHeroAPI.Models.Validators
 {
-    public class CreateSuperPowerValidator : AbstractValidator<CreateSuperPowerDto>
+    public class CreateSuperPowerDtoValidator : AbstractValidator<CreateSuperPowerDto>
     {
-        public CreateSuperPowerValidator(SuperHeroDbContext dbContext)
+        public CreateSuperPowerDtoValidator(SuperHeroDbContext dbContext)
         {
             RuleFor(x => x.Name).NotEmpty().MinimumLength(3).MaximumLength(50).Custom((value, context) =>
             {

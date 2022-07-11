@@ -12,7 +12,7 @@ namespace SuperHeroAPI.Mapper
                 .ForMember(m => m.Strength, c => c.MapFrom(s => s.BaseStrength + s.SuperPowers.Select(p => p.AdditionToSuperHeroStrength).Sum()));
 
             CreateMap<SuperPower, SuperPowerDto>()
-                .ForMember(m=>m.UsedBySuperHeroes, c=> c.MapFrom(s=>string.Join(", ",s.SuperHeroes.Select(s=>s.Name))));
+                .ForMember(m => m.UsedBySuperHeroes, c => c.MapFrom(s => string.Join(", ", s.SuperHeroes.Select(s => s.Name))));
 
             CreateMap<CreateSuperHeroDto, SuperHero>();
 
@@ -21,6 +21,13 @@ namespace SuperHeroAPI.Mapper
             CreateMap<CreateSuperPowerDto, SuperPower>();
 
             CreateMap<UpdateSuperPowerDto, SuperPower>();
+
+            CreateMap<CreateUserDto, User>();
+
+            CreateMap<LoginUserDto, User>();
+
+            CreateMap<User, UserDto>()
+                .ForMember(m => m.RoleName, c => c.MapFrom(s => s.Role!.Name));
         }
     }
 }

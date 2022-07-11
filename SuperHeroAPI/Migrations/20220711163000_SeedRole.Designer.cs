@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuperHeroAPI.Data;
 
@@ -10,9 +11,10 @@ using SuperHeroAPI.Data;
 namespace SuperHeroAPI.Migrations
 {
     [DbContext(typeof(SuperHeroDbContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220711163000_SeedRole")]
+    partial class SeedRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

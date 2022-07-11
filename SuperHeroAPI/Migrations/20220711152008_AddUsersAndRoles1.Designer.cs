@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuperHeroAPI.Data;
 
@@ -10,9 +11,10 @@ using SuperHeroAPI.Data;
 namespace SuperHeroAPI.Migrations
 {
     [DbContext(typeof(SuperHeroDbContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220711152008_AddUsersAndRoles1")]
+    partial class AddUsersAndRoles1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,18 +38,6 @@ namespace SuperHeroAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "User"
-                        });
                 });
 
             modelBuilder.Entity("SuperHeroAPI.Entities.SuperHero", b =>
