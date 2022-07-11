@@ -26,7 +26,7 @@ namespace SuperHeroAPI.Services
             {
                 Email = dto.Email,
                 Name = dto.Name,
-                RoleId = dto.RoleId,
+                RoleId = dto.RoleId > 0 ? dto.RoleId : 2,
             };
 
             newUser.PasswordHash = _passwordHasher.HashPassword(newUser, dto.Password);

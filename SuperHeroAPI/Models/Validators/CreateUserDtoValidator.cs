@@ -17,7 +17,7 @@ namespace SuperHeroAPI.Models.Validators
 
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
 
-            RuleFor(x => x.Password).MinimumLength(6);
+            RuleFor(x => x.Password).MinimumLength(6).Must(x => x.ToCharArray().Any(c => char.IsDigit(c)) && x.ToCharArray().Any(c => char.IsUpper(c)) && x.ToCharArray().Any(c => char.IsLower(c)) && x.ToCharArray().Any(c => char.IsSymbol(c) || char.IsPunctuation(c)));
 
             RuleFor(x => x.ConfirmPassword).Equal(e => e.Password);
 
@@ -32,7 +32,7 @@ namespace SuperHeroAPI.Models.Validators
 
             RuleFor(x => x.RoleId).Custom((value, context) =>
             {
-                if (!dbContext.Roles.Any(r => r.Id == value))
+                if (!dbContext.Roles.Any(r => r.Id == value) && value != 0)
                 {
                     context.AddFailure("Role", "Provided role not found");
                 }
