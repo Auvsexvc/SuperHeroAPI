@@ -2,12 +2,13 @@
 
 Simple controller based API in C# .Net Core 6
 
-many to many relation, dtos, custom mapping, errorhandling middleware, swagger, logger, fluent validation
+many to many relation, dtos, custom mapping, errorhandling middleware, swagger, logger, fluent validation, jwt auth
 
 using:
 
 AutoMapper.Extensions.Microsoft.DependencyInjection
 FluentValidation.AspNetCore
+Microsoft.AspNetCore.Authentication.JwtBearer
 Microsoft.EntityFrameworkCore
 Microsoft.EntityFrameworkCore.Design
 Microsoft.EntityFrameworkCore.SqlServer
@@ -16,5 +17,5 @@ NLog.Web.AspNetCore
 Swashbuckle.AspNetCore
 
 
-![image](https://user-images.githubusercontent.com/103057715/178124326-117248b6-a310-4031-812c-ca019ed2e9c3.png)
+![image](https://user-images.githubusercontent.com/103057715/178357319-49ff0bf7-f3fe-4f5b-99f7-1a39c5b08286.png)
 
