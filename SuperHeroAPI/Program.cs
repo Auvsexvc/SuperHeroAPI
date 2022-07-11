@@ -5,11 +5,14 @@ global using SuperHeroAPI.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
+using SuperHeroAPI.Authentication;
 using SuperHeroAPI.Entities;
 using SuperHeroAPI.MiddleWare;
 using SuperHeroAPI.Models;
 using SuperHeroAPI.Models.Validators;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +22,28 @@ builder.Logging.SetMinimumLevel(LogLevel.Trace);
 builder.Host.UseNLog();
 
 // Add services to the container.
+var authSettings = new AuthenticationSettings();
+builder.Configuration.GetSection("Authentication").Bind(authSettings);
 
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultAuthenticateScheme = "Bearer";
+    opt.DefaultScheme = "Bearer";
+    opt.DefaultChallengeScheme = "Bearer";
+}).AddJwtBearer(config =>
+{
+    config.SaveToken = true;
+    config.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidIssuer = authSettings.JwtIssuer,
+        ValidAudience = authSettings.JwtIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.JwtKey))
+    };
+});
+builder.Services.AddSingleton(authSettings);
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddDbContext<SuperHeroDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ISuperHeroService, SuperHeroService>();
 builder.Services.AddScoped<ISuperPowerService, SuperPowerService>();
@@ -47,10 +69,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseAuthentication();
 
 app.UseHttpsRedirection();
-
-//app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapControllers();
 

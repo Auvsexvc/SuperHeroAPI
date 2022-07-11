@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SuperHeroAPI.Models;
 
 namespace SuperHeroAPI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -29,6 +30,15 @@ namespace SuperHeroAPI.Controllers
             _accountService.CreateUser(dto);
 
             return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public ActionResult Login([FromBody] LoginUserDto dto)
+        {
+            string token = _accountService.GenerateJWT(dto);
+
+            return Ok(token);
         }
     }
 }

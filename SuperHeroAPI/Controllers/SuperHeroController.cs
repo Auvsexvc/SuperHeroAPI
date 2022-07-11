@@ -4,6 +4,7 @@ using SuperHeroAPI.Models;
 
 namespace SuperHeroAPI.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     [Route("api/[controller]")]
     [ApiController]
     public class SuperHeroController : ControllerBase
@@ -15,6 +16,7 @@ namespace SuperHeroAPI.Controllers
             _superHeroService = superHeroService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<IEnumerable<SuperHeroDto>> GetAll()
         {
@@ -23,6 +25,7 @@ namespace SuperHeroAPI.Controllers
             return Ok(superHeroesDtos);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public ActionResult<SuperHeroDto> Get([FromRoute] int id)
         {
@@ -47,6 +50,7 @@ namespace SuperHeroAPI.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public ActionResult<IEnumerable<SuperHeroDto>> DeleteAll()
         {

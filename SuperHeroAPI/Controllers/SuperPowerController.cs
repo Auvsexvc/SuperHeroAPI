@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SuperHeroAPI.Entities;
 using SuperHeroAPI.Models;
+using System.Data;
 
 namespace SuperPowerAPI.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     [Route("api/[controller]")]
     [ApiController]
     public class SuperPowerController : ControllerBase
@@ -15,6 +18,7 @@ namespace SuperPowerAPI.Controllers
             _superPowerService = superPowerService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<IEnumerable<SuperPowerDto>> GetAll()
         {
@@ -23,6 +27,7 @@ namespace SuperPowerAPI.Controllers
             return Ok(superPoweresDtos);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public ActionResult<SuperPowerDto> Get([FromRoute] int id)
         {
@@ -47,6 +52,7 @@ namespace SuperPowerAPI.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public ActionResult<List<SuperPower>> DeleteAll()
         {
